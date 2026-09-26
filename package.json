@@ -1,0 +1,12 @@
+{
+  "name": "mekuru",
+  "version": "1.0.0",
+  "private": true,
+  "description": "自分の単語帳を読み込んで、スワイプと4択クイズで覚える単語アプリ（PWA）",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "test": "node --test tests/*.test.js"
+  },
+  "license": "MIT"
+}

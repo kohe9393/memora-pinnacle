@@ -1,0 +1,36 @@
+// お試し用の単語帳。まぎらわしい組み合わせを多めに入れて、苦手分析が働く様子を見られるようにしている。
+
+export const SAMPLE_NAME = 'サンプル：まぎらわしい英単語30';
+
+export const SAMPLE_WORDS = [
+  ['abandon', '捨てる、見捨てる', 'They had to abandon the car in the snow.'],
+  ['adapt', '適応させる、順応する', 'Children adapt quickly to a new school.'],
+  ['adopt', '採用する、養子にする', 'The company adopted a new policy.'],
+  ['affect', '影響を与える', 'Lack of sleep can affect your memory.'],
+  ['effect', '効果、影響', 'The medicine had no effect.'],
+  ['acquire', '獲得する、身につける', 'She acquired fluent French in two years.'],
+  ['anticipate', '予想する、見越す', 'We anticipate a rise in prices.'],
+  ['borrow', '借りる', 'Can I borrow your pen?'],
+  ['lend', '貸す', 'Could you lend me your umbrella?'],
+  ['complement', '補完する、引き立てる', 'The wine complements the fish.'],
+  ['compliment', 'ほめ言葉、ほめる', 'Thank you for the compliment.'],
+  ['conscious', '意識している、気づいている', 'He was conscious of being watched.'],
+  ['conscience', '良心', 'She had a guilty conscience.'],
+  ['contribute', '貢献する、寄付する', 'Everyone contributed to the project.'],
+  ['deliberate', '意図的な、慎重な', 'It was a deliberate decision.'],
+  ['economic', '経済の', 'The country needs economic growth.'],
+  ['economical', '経済的な、節約になる', 'This car is very economical.'],
+  ['eventually', '最終的に、結局', 'Eventually, he agreed to help.'],
+  ['inevitable', '避けられない', 'Some change is inevitable.'],
+  ['principal', '主要な、校長', 'Cost is the principal reason.'],
+  ['principle', '原理、主義', 'It is a matter of principle.'],
+  ['quite', 'かなり、まったく', 'It is quite cold today.'],
+  ['quiet', '静かな', 'Please be quiet in the library.'],
+  ['reluctant', '気が進まない', 'She was reluctant to leave.'],
+  ['sufficient', '十分な', 'We do not have sufficient evidence.'],
+  ['temporary', '一時的な', 'He found a temporary job.'],
+  ['thorough', '徹底的な', 'The police made a thorough search.'],
+  ['through', '〜を通って', 'We walked through the park.'],
+  ['vague', 'あいまいな', 'His answer was vague.'],
+  ['withdraw', '引き出す、撤退する', 'I withdrew some cash.'],
+].map(([term, meaning, example]) => ({ term, meaning, example, note: '' }));
