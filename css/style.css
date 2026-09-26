@@ -4,18 +4,18 @@
 
 :root {
   color-scheme: light;
-  --bg: #eef1f6;
+  --bg: #f6f8fc;
   --card: #ffffff;
-  --card-2: #f4f6f9;
+  --card-2: #f3f6fb;
   --ink: #101217;
   --ink-2: #464c58;
   --muted: #8a909c;
   --line: #e3e6ec;
   --line-strong: #cdd2da;
-  --chip: #eceff3;
-  --accent: #2563eb;
+  --chip: #edf1f7;
+  --accent: #2f6bff;
   --accent-ink: #ffffff;
-  --accent-soft: #e7eefe;
+  --accent-soft: #e6eeff;
   --accent-text: #1d4fd8;
   --ok: #1d9a62;
   --ok-soft: #e2f5ec;
@@ -30,7 +30,7 @@
   --study-border: #101217;
   --shadow: 0 1px 2px rgba(16, 18, 23, 0.04), 0 10px 28px -14px rgba(20, 30, 60, 0.22);
   --shadow-lift: 0 2px 4px rgba(16, 18, 23, 0.05), 0 22px 44px -18px rgba(20, 30, 60, 0.35);
-  --scrim: rgba(238, 241, 246, 0.82);
+  --scrim: rgba(246, 248, 252, 0.85);
   --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Segoe UI", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
 }
 

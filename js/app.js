@@ -39,6 +39,9 @@ function applyTheme(theme) {
     delete root.dataset.theme;
     delete root.dataset.themeOwner;
   }
+  // ステータスバーの色も画面に合わせる
+  const dark = root.dataset.theme === 'dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = dark ? '#0d0f13' : '#f6f8fc';
 }
 
 function go(name, params = {}) {

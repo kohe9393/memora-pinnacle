@@ -1,7 +1,7 @@
 // オフラインでも開けるようにするための Service Worker。
 // ファイルを変更したら CACHE の番号を上げると、次回起動時に新しい版へ入れ替わる。
 
-const CACHE = 'mekuru-v2';
+const CACHE = 'mekuru-v3';
 const FONT_CACHE = 'mekuru-fonts-v1';
 
 const ASSETS = [

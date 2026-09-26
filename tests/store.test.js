@@ -160,6 +160,14 @@ test('以前の版の学習記録を読み込める', () => {
   assert.equal(s.iv, 0);
   assert.equal(s.weak, 'miss');
   assert.equal(store.settings.dailyGoal, 30);
+  assert.equal(store.settings.theme, 'light'); // 以前の「自動」は明るい画面に
+});
+
+test('明るい画面が標準。自分で選んだダークはそのまま', () => {
+  assert.equal(new Store(fakeStorage()).settings.theme, 'light');
+  const storage = fakeStorage();
+  storage.setItem(STORAGE_KEY, JSON.stringify({ decks: [], settings: { theme: 'dark' } }));
+  assert.equal(new Store(storage).settings.theme, 'dark');
 });
 
 test('壊れた保存データは無視、保存に失敗したら lastSaveOk が false', () => {

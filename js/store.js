@@ -12,7 +12,7 @@ export const DEFAULT_SETTINGS = {
   autoSpeak: false,
   showButtons: false, // スワイプの代わりに押せるボタン
   autoAdvance: true, // 4択で正解したら自動で次へ
-  theme: 'auto',
+  theme: 'light', // 端末がダークモードでも、明るい画面で始める
   deck: 'all',
   coachQ: false, // 操作説明を見たか（出題側）
   coachA: false, // 操作説明を見たか（答え側）
@@ -72,6 +72,11 @@ function validate(data) {
   if (!data || typeof data !== 'object' || !Array.isArray(data.decks)) throw new Error('単語帳のデータが見つかりません');
   const out = emptyData();
   out.settings = { ...DEFAULT_SETTINGS, ...(data.settings || {}) };
+  // v2.1 から明るい画面が標準。それ以前の「自動」は明るい画面に切り替える
+  if (!out.settings.themeV) {
+    if (out.settings.theme === 'auto') out.settings.theme = 'light';
+    out.settings.themeV = 1;
+  }
   out.stats = {};
   for (const [id, st] of Object.entries(data.stats && typeof data.stats === 'object' ? data.stats : {})) out.stats[id] = migrateState(st);
   out.daily = data.daily && typeof data.daily === 'object' ? data.daily : {};
