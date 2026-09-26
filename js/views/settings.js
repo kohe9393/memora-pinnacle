@@ -5,7 +5,7 @@ import { decodeBytes } from '../parser.js';
 import { canSpeak } from '../speech.js';
 import { topbar } from './common.js';
 
-export const APP_VERSION = '2.1.0';
+export const APP_VERSION = '2.1.1';
 
 export function render(ctx) {
   const { store, go, applyTheme } = ctx;

@@ -95,8 +95,19 @@ go('home');
 
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {
-      /* プレビュー環境などでは登録できないことがある */
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker
+      .register('sw.js', { updateViaCache: 'none' })
+      .then((reg) => reg.update())
+      .catch(() => {
+        /* プレビュー環境などでは登録できないことがある */
+      });
+    // 新しい版が入ったら1回だけ読み直して、すぐに切り替える
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || reloaded) return;
+      reloaded = true;
+      location.reload();
     });
   });
 }

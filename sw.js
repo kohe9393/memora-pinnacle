@@ -1,7 +1,7 @@
 // オフラインでも開けるようにするための Service Worker。
 // ファイルを変更したら CACHE の番号を上げると、次回起動時に新しい版へ入れ替わる。
 
-const CACHE = 'mekuru-v3';
+const CACHE = 'mekuru-v4';
 const FONT_CACHE = 'mekuru-fonts-v1';
 
 const ASSETS = [
@@ -42,7 +42,13 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
+  // ブラウザのHTTPキャッシュを通さず、必ず最新のファイルを取りにいく
+  event.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(ASSETS.map((url) => new Request(url, { cache: 'reload' }))))
+      .then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -75,17 +81,17 @@ self.addEventListener('fetch', (event) => {
 
   if (url.origin !== self.location.origin) return;
 
-  // アプリ本体：キャッシュをすぐ返しつつ、裏で最新版に更新する
+  // アプリ本体：つながっていれば最新版を取り、オフラインのときだけ保存した版を使う
   event.respondWith(
     caches.open(CACHE).then(async (cache) => {
-      const cached = await cache.match(request, { ignoreSearch: request.mode === 'navigate' });
-      const network = fetch(request)
-        .then((res) => {
-          if (res.ok) cache.put(request, res.clone());
-          return res;
-        })
-        .catch(async () => cached || (request.mode === 'navigate' && (await cache.match('./index.html'))) || Response.error());
-      return cached || network;
+      try {
+        const res = await fetch(request, { cache: 'no-cache' });
+        if (res.ok) cache.put(request, res.clone());
+        return res;
+      } catch {
+        const cached = await cache.match(request, { ignoreSearch: request.mode === 'navigate' });
+        return cached || (request.mode === 'navigate' && (await cache.match('./index.html'))) || Response.error();
+      }
     }),
   );
 });
