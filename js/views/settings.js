@@ -5,7 +5,7 @@ import { decodeBytes } from '../parser.js';
 import { canSpeak } from '../speech.js';
 import { topbar } from './common.js';
 
-export const APP_VERSION = '2.1.1';
+export const APP_VERSION = '2.1.2';
 
 export function render(ctx) {
   const { store, go, applyTheme } = ctx;
@@ -162,6 +162,7 @@ export function render(ctx) {
       el('p', { class: 'small' }, el('b', {}, 'iPhone / iPad：'), 'Safari で開き、共有ボタン →「ホーム画面に追加」。アプリのように全画面で使え、オフラインでも動きます。'),
       el('p', { class: 'small' }, el('b', {}, 'Android：'), 'Chrome のメニュー →「アプリをインストール」または「ホーム画面に追加」。'),
       el('p', { class: 'small muted' }, `めくる単語帳 v${APP_VERSION}`),
+      el('button', { class: 'btn btn-sm', style: { alignSelf: 'flex-start' }, onclick: forceUpdate }, '最新版に更新する'),
     ),
   );
 
@@ -255,4 +256,18 @@ function restore(store, go) {
       ),
     ),
   });
+}
+
+/** 保存してあるアプリ本体を捨てて、最新版を読み込み直す（単語帳や学習記録は消えない） */
+async function forceUpdate() {
+  toast('最新版を読み込んでいます…');
+  try {
+    const regs = (await navigator.serviceWorker?.getRegistrations?.()) || [];
+    await Promise.all(regs.map((r) => r.unregister()));
+    const keys = (await globalThis.caches?.keys?.()) || [];
+    await Promise.all(keys.map((k) => caches.delete(k)));
+  } catch {
+    /* 対応していない環境ではそのまま読み直す */
+  }
+  location.reload();
 }
